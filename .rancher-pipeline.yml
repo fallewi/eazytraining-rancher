@@ -1,5 +1,5 @@
 stages:
-- name: Codeception test
+- name:  Test
   steps:
   - runScriptConfig:
       image: php:7.2
@@ -15,13 +15,13 @@ stages:
         php artisan migrate --env=testing --database=sqlite_testing --force
         ./vendor/bin/codecept build
         ./vendor/bin/codecept run
-- name: Publish image
+- name: Publication Image
   steps:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
       tag: php-example:${CICD_EXECUTION_SEQUENCE}
-- name: Deploy
+- name: Deploiement
   steps:
   - applyYamlConfig:
       path: ./deploy/deployment.yaml
